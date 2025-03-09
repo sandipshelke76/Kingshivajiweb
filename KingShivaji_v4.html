@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            box-sizing: border-box;
+            padding-top: 20px;
+        }
+        .main-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+            text-align: center;
+            margin-bottom: 10px;
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 3px solid #333;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 5px solid #333;
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input:invalid {
+            border-color: red;
+            color: red;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit {
+            background-color: #007bff;
+            color: white;
+        }
+        .submit:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+        .amazon {
+            background-color: #ff9900;
+            color: white;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            height: 3px;
+            background: #333;
+        }
+        .promo-text {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .promo-text strong {
+            font-size: 18px;
+            color: #d9534f;
+        }
+        .content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .form-section, .video-section {
+            width: 48%;
+        }
+        .video-frame {
+            width: 100%;
+            border: 3px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+        .contact-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script type="text/javascript">
+        function validatePhone(input) {
+            var phonePattern = /^[0-9]{10}$/;
+            var submitButton = document.getElementById('submitBtn');
+            if (!phonePattern.test(input.value)) {
+                input.setCustomValidity("10 digit phone only");
+                input.reportValidity();
+                submitButton.disabled = true;
+            } else {
+                input.setCustomValidity("");
+                submitButton.disabled = false;
+            }
+        }
+
+        function sendEmail() {
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            
+            Email.send({
+                Host: "smtp.gmail.com",
+                Username: "kingshivajichronicles@gmail.com",
+                Password: "King@2024", // Replace with a secure App Password
+                To: "kingshivajichronicles@gmail.com",
+                From: "kingshivajichronicles@gmail.com",
+                Subject: "Author Copy Request - " + name + " - " + phone,
+                Body: "Request from: " + name + "<br>Phone: " + phone
+            }).then(
+                message => {
+                    document.body.innerHTML = '<div class="message">Thanks for Requesting Author Copy. The Author\'s team will get in touch with you in a short time on phone to initiate the delivery processing. Please feel free to visit our website or Insta to get all info on this novel.</div>';
+                }
+            );
+        }
+    </script>
+</head>
+<body>
+    <div class="main-title">The King Shivaji Chronicles</div>
+    <div class="container">
+        <div class="promo-text">Limited time opportunity to get an <strong>Exclusive Author Copy</strong> with special message and <strong>Author Original Signature</strong>!</div>
+        <div class="price-text" style="font-size: 18px; font-weight: bold; color: #d9534f; text-align: center; margin-bottom: 10px;">Just at Rs 549/- with free 2 day delivery !!</div>
+        
+        <div class="content">
+            <div class="form-section">
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <input type="tel" id="phone" placeholder="Enter your phone number" required onblur="validatePhone(this)">
+                <button class="submit" id="submitBtn" onclick="sendEmail()" disabled>Request Author Copy</button>
+                <div class="contact-text">The author's team will get in touch with you for delivery</div>
+            </div>
+            <div class="video-section">
+                <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h1 style="font-size: 18px;">Or</h1>
+        <button class="amazon" onclick="window.location.href='https://www.amazon.in'">Get from Amazon Prime at 549/- with 2 day free delivery</button>
+    </div>
+</body>
+</html>
